@@ -3,7 +3,9 @@ Imports System.IO
 
 Public Class MainForm
 
-    Private childProcessDomain As String = "backgroundTaskRunnerChild"
+    Const WM_SYSCOMMAND As Integer = &H112
+    Const SC_SCREENSAVE As Integer = &HF140
+
     Private batchProcessStartInfo As ProcessStartInfo = Nothing
     Private batchProcess As Process = Nothing
 
@@ -34,26 +36,36 @@ Public Class MainForm
         End If
     End Sub
 
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        MyBase.WndProc(m)
+        If m.Msg = WM_SYSCOMMAND AndAlso m.WParam.ToInt32 = SC_SCREENSAVE Then
+            LogEvent("Screensaver Started")
+            StartChildProcess()
+            AddHandler Application.Idle, AddressOf OnScreensaverIdle
+        End If
+    End Sub
+
+    Private Sub OnScreensaverIdle(ByVal sender As Object, ByVal e As EventArgs)
+        RemoveHandler Application.Idle, AddressOf OnScreensaverIdle
+        LogEvent("Screensaver Stopped")
+        Threading.Thread.Sleep(1000)
+        StopChildProcessOnAwake()
+    End Sub
+
     Private Sub SystemEvents_SessionSwitch(ByVal sender As Object, ByVal e As SessionSwitchEventArgs)
         LogEvent("Session Switch (" & e.Reason.ToString() & ")")
         Select Case e.Reason
             Case SessionSwitchReason.SessionLock
                 StartChildProcess()
             Case SessionSwitchReason.SessionUnlock
-                If cbStopOnAwake.Checked Then
-                    StopChildProcess()
-                Else
-                    LogEvent("Child process will be left open")
-                End If
+                StopChildProcessOnAwake()
         End Select
     End Sub
 
     Private Sub StartChildProcess() Handles btnStartChildProcess.Click
-
         Dim path As String = tbFilePath.Text
-        LogEvent("Starting child process... killing previous process")
+        LogEvent("Starting process... checking for previous process")
         StopChildProcess()
-
         If path.EndsWith(".bat") Then
             If File.Exists(path) Then
                 CreateChildProcess(path)
@@ -65,37 +77,39 @@ Public Class MainForm
         End If
     End Sub
 
-    Private Sub StopChildProcess() Handles btnStopChildProcess.Click
+    Private Sub StopChildProcessOnAwake()
+        If cbStopOnAwake.Checked Then
+            StopChildProcess()
+        Else
+            LogEvent("Process will not be stopped (Stop on Awake = False)")
+        End If
+    End Sub
 
+    Private Sub StopChildProcess() Handles btnStopChildProcess.Click
         If batchProcess IsNot Nothing Then
             Try
                 If Not batchProcess.HasExited Then
-                    LogEvent("Killing child main process (ID " & batchProcess.Id & ")")
+                    LogEvent("Killing process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
                     batchProcess.CloseMainWindow()
                 Else
-                    LogEvent("Child process has already exited (Exit Code " & batchProcess.ExitCode & ")")
+                    LogEvent("Process has already exited (Exit Code " & batchProcess.ExitCode & ")")
                 End If
             Catch ex As Exception
-                LogEvent("Failed To fetch child process (Error: " & ex.Message & ")")
+                LogEvent("Failed To stop process (Error: " & ex.Message & ")")
             End Try
         Else
-            LogEvent("No child process detected, skipping 'stop'")
+            LogEvent("No process detected, skipping 'stop'")
         End If
-
         batchProcess = Nothing
-
     End Sub
 
     Private Sub CreateChildProcess(path As String)
         Try
-
             batchProcessStartInfo = New ProcessStartInfo(path)
             batchProcessStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
             LogEvent("Using Execution Directory: " & batchProcessStartInfo.WorkingDirectory)
-
             batchProcess = Process.Start(batchProcessStartInfo)
-            LogEvent("Child process started (ID " & batchProcess.Id & ")")
-
+            LogEvent("Starting process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
         Catch ex As Exception
             LogEvent("Failed to start process (caught error) - " & ex.Message)
         End Try

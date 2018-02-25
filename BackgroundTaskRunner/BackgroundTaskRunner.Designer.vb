@@ -64,11 +64,11 @@ Partial Class MainForm
         Me.cbStopOnAwake.AutoSize = True
         Me.cbStopOnAwake.Checked = True
         Me.cbStopOnAwake.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cbStopOnAwake.Location = New System.Drawing.Point(499, 42)
+        Me.cbStopOnAwake.Location = New System.Drawing.Point(540, 40)
         Me.cbStopOnAwake.Name = "cbStopOnAwake"
-        Me.cbStopOnAwake.Size = New System.Drawing.Size(140, 17)
+        Me.cbStopOnAwake.Size = New System.Drawing.Size(99, 17)
         Me.cbStopOnAwake.TabIndex = 3
-        Me.cbStopOnAwake.Text = "Stop Process on Awake"
+        Me.cbStopOnAwake.Text = "Stop on Awake"
         Me.cbStopOnAwake.UseVisualStyleBackColor = True
         '
         'lblEventLogs
@@ -94,25 +94,25 @@ Partial Class MainForm
         '
         Me.btnStartChildProcess.Location = New System.Drawing.Point(94, 36)
         Me.btnStartChildProcess.Name = "btnStartChildProcess"
-        Me.btnStartChildProcess.Size = New System.Drawing.Size(106, 23)
+        Me.btnStartChildProcess.Size = New System.Drawing.Size(78, 23)
         Me.btnStartChildProcess.TabIndex = 6
-        Me.btnStartChildProcess.Text = "Start Child Process"
+        Me.btnStartChildProcess.Text = "Start"
         Me.btnStartChildProcess.UseVisualStyleBackColor = True
         '
         'btnStopChildProcess
         '
-        Me.btnStopChildProcess.Location = New System.Drawing.Point(206, 36)
+        Me.btnStopChildProcess.Location = New System.Drawing.Point(178, 36)
         Me.btnStopChildProcess.Name = "btnStopChildProcess"
-        Me.btnStopChildProcess.Size = New System.Drawing.Size(104, 23)
+        Me.btnStopChildProcess.Size = New System.Drawing.Size(83, 23)
         Me.btnStopChildProcess.TabIndex = 7
-        Me.btnStopChildProcess.Text = "Stop Child Process"
+        Me.btnStopChildProcess.Text = "Stop"
         Me.btnStopChildProcess.UseVisualStyleBackColor = True
         '
         'btnClearLogs
         '
-        Me.btnClearLogs.Location = New System.Drawing.Point(316, 36)
+        Me.btnClearLogs.Location = New System.Drawing.Point(267, 36)
         Me.btnClearLogs.Name = "btnClearLogs"
-        Me.btnClearLogs.Size = New System.Drawing.Size(103, 23)
+        Me.btnClearLogs.Size = New System.Drawing.Size(88, 23)
         Me.btnClearLogs.TabIndex = 8
         Me.btnClearLogs.Text = "Clear Logs"
         Me.btnClearLogs.UseVisualStyleBackColor = True
