@@ -1,0 +1,12 @@
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Release\BackgroundTaskRunner.exe.config
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Release\BackgroundTaskRunner.exe
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Release\BackgroundTaskRunner.pdb
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Release\BackgroundTaskRunner.xml
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.MainForm.resources
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.Resources.resources
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.vbproj.GenerateResource.Cache
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.vbproj.CoreCompileInputs.cache
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.exe
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.xml
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.pdb
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Release\BackgroundTaskRunner.vbprojResolveAssemblyReference.cache

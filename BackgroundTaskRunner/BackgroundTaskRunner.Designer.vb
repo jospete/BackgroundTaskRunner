@@ -30,6 +30,7 @@ Partial Class MainForm
         Me.lbEventLogs = New System.Windows.Forms.ListBox()
         Me.btnStartChildProcess = New System.Windows.Forms.Button()
         Me.btnStopChildProcess = New System.Windows.Forms.Button()
+        Me.btnClearLogs = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblBatchFileSelector
@@ -63,7 +64,7 @@ Partial Class MainForm
         Me.cbStopOnAwake.AutoSize = True
         Me.cbStopOnAwake.Checked = True
         Me.cbStopOnAwake.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cbStopOnAwake.Location = New System.Drawing.Point(412, 42)
+        Me.cbStopOnAwake.Location = New System.Drawing.Point(499, 42)
         Me.cbStopOnAwake.Name = "cbStopOnAwake"
         Me.cbStopOnAwake.Size = New System.Drawing.Size(140, 17)
         Me.cbStopOnAwake.TabIndex = 3
@@ -93,25 +94,35 @@ Partial Class MainForm
         '
         Me.btnStartChildProcess.Location = New System.Drawing.Point(94, 36)
         Me.btnStartChildProcess.Name = "btnStartChildProcess"
-        Me.btnStartChildProcess.Size = New System.Drawing.Size(129, 23)
+        Me.btnStartChildProcess.Size = New System.Drawing.Size(106, 23)
         Me.btnStartChildProcess.TabIndex = 6
         Me.btnStartChildProcess.Text = "Start Child Process"
         Me.btnStartChildProcess.UseVisualStyleBackColor = True
         '
         'btnStopChildProcess
         '
-        Me.btnStopChildProcess.Location = New System.Drawing.Point(229, 36)
+        Me.btnStopChildProcess.Location = New System.Drawing.Point(206, 36)
         Me.btnStopChildProcess.Name = "btnStopChildProcess"
-        Me.btnStopChildProcess.Size = New System.Drawing.Size(129, 23)
+        Me.btnStopChildProcess.Size = New System.Drawing.Size(104, 23)
         Me.btnStopChildProcess.TabIndex = 7
         Me.btnStopChildProcess.Text = "Stop Child Process"
         Me.btnStopChildProcess.UseVisualStyleBackColor = True
+        '
+        'btnClearLogs
+        '
+        Me.btnClearLogs.Location = New System.Drawing.Point(316, 36)
+        Me.btnClearLogs.Name = "btnClearLogs"
+        Me.btnClearLogs.Size = New System.Drawing.Size(103, 23)
+        Me.btnClearLogs.TabIndex = 8
+        Me.btnClearLogs.Text = "Clear Logs"
+        Me.btnClearLogs.UseVisualStyleBackColor = True
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(651, 327)
+        Me.Controls.Add(Me.btnClearLogs)
         Me.Controls.Add(Me.btnStopChildProcess)
         Me.Controls.Add(Me.btnStartChildProcess)
         Me.Controls.Add(Me.lbEventLogs)
@@ -137,4 +148,5 @@ Partial Class MainForm
     Friend WithEvents lbEventLogs As ListBox
     Friend WithEvents btnStartChildProcess As Button
     Friend WithEvents btnStopChildProcess As Button
+    Friend WithEvents btnClearLogs As Button
 End Class

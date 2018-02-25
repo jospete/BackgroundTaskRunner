@@ -16,6 +16,10 @@ Public Class MainForm
         lbEventLogs.Items.Add(Now.ToLocalTime() & ":    " & log)
     End Sub
 
+    Private Sub btnClearLogs_Click(sender As Object, e As EventArgs) Handles btnClearLogs.Click
+        lbEventLogs.Items.Clear()
+    End Sub
+
     Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
 
         Dim fd As OpenFileDialog = New OpenFileDialog()
