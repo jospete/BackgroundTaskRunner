@@ -1,0 +1,12 @@
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Debug\BackgroundTaskRunner.exe.config
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Debug\BackgroundTaskRunner.exe
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Debug\BackgroundTaskRunner.pdb
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\bin\Debug\BackgroundTaskRunner.xml
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.vbprojResolveAssemblyReference.cache
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.MainForm.resources
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.Resources.resources
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.vbproj.GenerateResource.Cache
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.vbproj.CoreCompileInputs.cache
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.exe
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.xml
+D:\VisualBasic\BackgroundTaskRunner\BackgroundTaskRunner\obj\Debug\BackgroundTaskRunner.pdb
