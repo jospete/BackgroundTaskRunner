@@ -12,6 +12,13 @@ Public Class MainForm
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AddHandler SystemEvents.SessionSwitch, AddressOf SystemEvents_SessionSwitch
         LogEvent("Startup")
+        Try
+            My.Settings.Reload()
+            tbFilePath.Text = My.Settings.TargetPath
+            cbStopOnAwake.Checked = My.Settings.StopOnAwake
+        Catch ex As Exception
+            LogEvent("Failed to load cached settings: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub LogEvent(log As String)
@@ -20,6 +27,16 @@ Public Class MainForm
 
     Private Sub btnClearLogs_Click(sender As Object, e As EventArgs) Handles btnClearLogs.Click
         lbEventLogs.Items.Clear()
+    End Sub
+
+    Private Sub tbFilePath_TextChanged(sender As Object, e As EventArgs) Handles tbFilePath.TextChanged
+        My.Settings.TargetPath = tbFilePath.Text
+        My.Settings.Save()
+    End Sub
+
+    Private Sub cbStopOnAwake_CheckedChanged(sender As Object, e As EventArgs) Handles cbStopOnAwake.CheckedChanged
+        My.Settings.StopOnAwake = cbStopOnAwake.Checked
+        My.Settings.Save()
     End Sub
 
     Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
@@ -48,7 +65,6 @@ Public Class MainForm
     Private Sub OnScreensaverIdle(ByVal sender As Object, ByVal e As EventArgs)
         RemoveHandler Application.Idle, AddressOf OnScreensaverIdle
         LogEvent("Screensaver Stopped")
-        Threading.Thread.Sleep(1000)
         StopChildProcessOnAwake()
     End Sub
 
@@ -64,16 +80,18 @@ Public Class MainForm
 
     Private Sub StartChildProcess() Handles btnStartChildProcess.Click
         Dim path As String = tbFilePath.Text
-        LogEvent("Starting process... checking for previous process")
-        StopChildProcess()
-        If path.EndsWith(".bat") Then
-            If File.Exists(path) Then
-                CreateChildProcess(path)
+        If batchProcess Is Nothing Then
+            If path.EndsWith(".bat") Then
+                If File.Exists(path) Then
+                    CreateChildProcess(path)
+                Else
+                    LogEvent("Failed to start process (not a file) '" & path & "'")
+                End If
             Else
-                LogEvent("Failed to start process (not a file) '" & path & "'")
+                LogEvent("Failed to start process (not an executable file) '" & path & "'")
             End If
         Else
-            LogEvent("Failed to start process (not an executable file) '" & path & "'")
+            LogEvent("Process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ") already running, skipping duplicate call")
         End If
     End Sub
 
@@ -89,6 +107,7 @@ Public Class MainForm
         If batchProcess IsNot Nothing Then
             Try
                 If Not batchProcess.HasExited Then
+                    Threading.Thread.Sleep(1000)
                     LogEvent("Killing process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
                     batchProcess.CloseMainWindow()
                 Else

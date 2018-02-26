@@ -31,13 +31,16 @@ Partial Class MainForm
         Me.btnStartChildProcess = New System.Windows.Forms.Button()
         Me.btnStopChildProcess = New System.Windows.Forms.Button()
         Me.btnClearLogs = New System.Windows.Forms.Button()
+        Me.lblDescription = New System.Windows.Forms.Label()
+        Me.lblDescription2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblBatchFileSelector
         '
         Me.lblBatchFileSelector.AutoSize = True
         Me.lblBatchFileSelector.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBatchFileSelector.Location = New System.Drawing.Point(14, 14)
+        Me.lblBatchFileSelector.Location = New System.Drawing.Point(21, 123)
         Me.lblBatchFileSelector.Name = "lblBatchFileSelector"
         Me.lblBatchFileSelector.Size = New System.Drawing.Size(81, 17)
         Me.lblBatchFileSelector.TabIndex = 0
@@ -45,14 +48,14 @@ Partial Class MainForm
         '
         'tbFilePath
         '
-        Me.tbFilePath.Location = New System.Drawing.Point(94, 13)
+        Me.tbFilePath.Location = New System.Drawing.Point(101, 122)
         Me.tbFilePath.Name = "tbFilePath"
         Me.tbFilePath.Size = New System.Drawing.Size(464, 20)
         Me.tbFilePath.TabIndex = 1
         '
         'btnFileBrowser
         '
-        Me.btnFileBrowser.Location = New System.Drawing.Point(564, 11)
+        Me.btnFileBrowser.Location = New System.Drawing.Point(571, 120)
         Me.btnFileBrowser.Name = "btnFileBrowser"
         Me.btnFileBrowser.Size = New System.Drawing.Size(75, 23)
         Me.btnFileBrowser.TabIndex = 2
@@ -64,7 +67,7 @@ Partial Class MainForm
         Me.cbStopOnAwake.AutoSize = True
         Me.cbStopOnAwake.Checked = True
         Me.cbStopOnAwake.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.cbStopOnAwake.Location = New System.Drawing.Point(540, 40)
+        Me.cbStopOnAwake.Location = New System.Drawing.Point(547, 149)
         Me.cbStopOnAwake.Name = "cbStopOnAwake"
         Me.cbStopOnAwake.Size = New System.Drawing.Size(99, 17)
         Me.cbStopOnAwake.TabIndex = 3
@@ -75,7 +78,7 @@ Partial Class MainForm
         '
         Me.lblEventLogs.AutoSize = True
         Me.lblEventLogs.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEventLogs.Location = New System.Drawing.Point(13, 74)
+        Me.lblEventLogs.Location = New System.Drawing.Point(20, 215)
         Me.lblEventLogs.Name = "lblEventLogs"
         Me.lblEventLogs.Size = New System.Drawing.Size(104, 24)
         Me.lblEventLogs.TabIndex = 4
@@ -85,14 +88,14 @@ Partial Class MainForm
         '
         Me.lbEventLogs.FormattingEnabled = True
         Me.lbEventLogs.HorizontalScrollbar = True
-        Me.lbEventLogs.Location = New System.Drawing.Point(12, 103)
+        Me.lbEventLogs.Location = New System.Drawing.Point(19, 244)
         Me.lbEventLogs.Name = "lbEventLogs"
         Me.lbEventLogs.Size = New System.Drawing.Size(627, 212)
         Me.lbEventLogs.TabIndex = 5
         '
         'btnStartChildProcess
         '
-        Me.btnStartChildProcess.Location = New System.Drawing.Point(94, 36)
+        Me.btnStartChildProcess.Location = New System.Drawing.Point(101, 145)
         Me.btnStartChildProcess.Name = "btnStartChildProcess"
         Me.btnStartChildProcess.Size = New System.Drawing.Size(78, 23)
         Me.btnStartChildProcess.TabIndex = 6
@@ -101,7 +104,7 @@ Partial Class MainForm
         '
         'btnStopChildProcess
         '
-        Me.btnStopChildProcess.Location = New System.Drawing.Point(178, 36)
+        Me.btnStopChildProcess.Location = New System.Drawing.Point(185, 145)
         Me.btnStopChildProcess.Name = "btnStopChildProcess"
         Me.btnStopChildProcess.Size = New System.Drawing.Size(83, 23)
         Me.btnStopChildProcess.TabIndex = 7
@@ -110,18 +113,53 @@ Partial Class MainForm
         '
         'btnClearLogs
         '
-        Me.btnClearLogs.Location = New System.Drawing.Point(267, 36)
+        Me.btnClearLogs.Location = New System.Drawing.Point(130, 215)
         Me.btnClearLogs.Name = "btnClearLogs"
         Me.btnClearLogs.Size = New System.Drawing.Size(88, 23)
         Me.btnClearLogs.TabIndex = 8
         Me.btnClearLogs.Text = "Clear Logs"
         Me.btnClearLogs.UseVisualStyleBackColor = True
         '
+        'lblDescription
+        '
+        Me.lblDescription.AutoSize = True
+        Me.lblDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescription.Location = New System.Drawing.Point(7, 9)
+        Me.lblDescription.Name = "lblDescription"
+        Me.lblDescription.Size = New System.Drawing.Size(631, 17)
+        Me.lblDescription.TabIndex = 10
+        Me.lblDescription.Text = "1. The selected .exe or .bat file will be run when this machine is locked or ente" &
+    "rs screensaver mode"
+        '
+        'lblDescription2
+        '
+        Me.lblDescription2.AutoSize = True
+        Me.lblDescription2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescription2.Location = New System.Drawing.Point(7, 65)
+        Me.lblDescription2.Name = "lblDescription2"
+        Me.lblDescription2.Size = New System.Drawing.Size(418, 17)
+        Me.lblDescription2.TabIndex = 11
+        Me.lblDescription2.Text = "3. This runner must remain open for these changes to take effect"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(7, 37)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(649, 17)
+        Me.Label1.TabIndex = 12
+        Me.Label1.Text = "2. When 'Stop on Awake' is active, the process will be killed automatically when " &
+    "this machine wakes up"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(651, 327)
+        Me.ClientSize = New System.Drawing.Size(673, 475)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblDescription2)
+        Me.Controls.Add(Me.lblDescription)
         Me.Controls.Add(Me.btnClearLogs)
         Me.Controls.Add(Me.btnStopChildProcess)
         Me.Controls.Add(Me.btnStartChildProcess)
@@ -149,4 +187,7 @@ Partial Class MainForm
     Friend WithEvents btnStartChildProcess As Button
     Friend WithEvents btnStopChildProcess As Button
     Friend WithEvents btnClearLogs As Button
+    Friend WithEvents lblDescription As Label
+    Friend WithEvents lblDescription2 As Label
+    Friend WithEvents Label1 As Label
 End Class
