@@ -1,5 +1,5 @@
-ProjectName/bin
-ProjectName/obj
+BackgroundTaskRunner/bin
+BackgroundTaskRunner/obj
 *.user
 *.suo
 _ReSharper.*
