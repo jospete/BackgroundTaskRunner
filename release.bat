@@ -1,1 +1,0 @@
-copy BackgroundTaskRunner\bin\Release\BackgroundTaskRunner.exe Release\

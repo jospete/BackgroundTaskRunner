@@ -1,4 +1,5 @@
 BackgroundTaskRunner/bin
+!BackgroundTaskRunner/bin/Release/BackgroundTaskRunner.exe
 BackgroundTaskRunner/obj
 *.user
 *.suo
