@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class MainForm
+Partial Class BackgroundTaskRunnerForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -152,7 +152,7 @@ Partial Class MainForm
         Me.Label1.Text = "2. When 'Stop on Awake' is active, the process will be killed automatically when " &
     "this machine wakes up"
         '
-        'MainForm
+        'BackgroundTaskRunnerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -171,7 +171,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.lblBatchFileSelector)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
-        Me.Name = "MainForm"
+        Me.Name = "BackgroundTaskRunnerForm"
         Me.Text = "Background Task Runner"
         Me.ResumeLayout(False)
         Me.PerformLayout()
