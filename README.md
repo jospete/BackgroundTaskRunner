@@ -9,7 +9,7 @@ Likewise, the executable will be stopped when the computer is unlocked, or when 
 This is a Visual Basic project built with Visual Studio 2017:  
 https://www.visualstudio.com
 
-Guide linking to a git project VS:  
+Guide on how to link a git project to VS:  
 https://docs.microsoft.com/en-us/vsts/git/gitquickstart?tabs=visual-studio
 
 ### Direct Download
