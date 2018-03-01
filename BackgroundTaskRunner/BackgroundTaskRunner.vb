@@ -3,8 +3,8 @@ Imports System.IO
 
 Public Class BackgroundTaskRunnerForm
 
-    Const WM_SYSCOMMAND As Integer = &H112
-    Const SC_SCREENSAVE As Integer = &HF140
+    Private Const WM_SYSCOMMAND As Integer = &H112
+    Private Const SC_SCREENSAVE As Integer = &HF140
 
     Private batchProcessStartInfo As ProcessStartInfo = Nothing
     Private batchProcess As Process = Nothing
@@ -13,13 +13,13 @@ Public Class BackgroundTaskRunnerForm
     Private Sub BackgroundTaskRunnerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AddHandler SystemEvents.SessionSwitch, AddressOf SystemEvents_SessionSwitch
         LogEvent("Startup")
-        Try
-            My.Settings.Reload()
-            tbFilePath.Text = My.Settings.TargetPath
-            cbStopOnAwake.Checked = My.Settings.StopOnAwake
-        Catch ex As Exception
-            LogEvent("Failed to load cached settings: " & ex.Message)
-        End Try
+        ReloadSettings()
+    End Sub
+
+    ' Kill batchProcess if it is running
+    Private Sub BackgroundTaskRunnerForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        LogEvent("Closing...")
+        StopChildProcess()
     End Sub
 
     ' Helper for client status
@@ -42,21 +42,6 @@ Public Class BackgroundTaskRunnerForm
     Private Sub cbStopOnAwake_CheckedChanged(sender As Object, e As EventArgs) Handles cbStopOnAwake.CheckedChanged
         My.Settings.StopOnAwake = cbStopOnAwake.Checked
         My.Settings.Save()
-    End Sub
-
-    ' Opens a file browser for the file path text box
-    Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
-
-        Dim fd As OpenFileDialog = New OpenFileDialog()
-        fd.Filter = "Batch files (*.bat)|*.bat|Executables (*.exe)|(*.exe)"
-        fd.Title = "Select Background Task"
-        fd.InitialDirectory = "C:\Desktop"
-        fd.RestoreDirectory = True
-        fd.FilterIndex = 2
-
-        If fd.ShowDialog() = DialogResult.OK Then
-            tbFilePath.Text = fd.FileName
-        End If
     End Sub
 
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.
@@ -88,6 +73,52 @@ Public Class BackgroundTaskRunnerForm
         End Select
     End Sub
 
+    ' Stops the target process if there is one running and "Stop on Awake" is checked
+    Private Sub StopChildProcessOnAwake()
+        If cbStopOnAwake.Checked Then
+            StopChildProcess()
+        Else
+            LogEvent("Process will not be stopped (Stop on Awake = False)")
+        End If
+    End Sub
+
+    ' Reload settings from cache
+    Private Sub ReloadSettings()
+        Try
+            My.Settings.Reload()
+            tbFilePath.Text = My.Settings.TargetPath
+            cbStopOnAwake.Checked = My.Settings.StopOnAwake
+        Catch ex As Exception
+            LogEvent("Failed to load cached settings: " & ex.Message)
+        End Try
+    End Sub
+
+    ' Starts the process at the given path
+    Private Sub CreateChildProcess(path As String)
+        Try
+            batchProcessStartInfo = New ProcessStartInfo(path)
+            batchProcessStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
+            LogEvent("Using Execution Directory: " & batchProcessStartInfo.WorkingDirectory)
+            batchProcess = Process.Start(batchProcessStartInfo)
+            LogEvent("Starting process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
+        Catch ex As Exception
+            LogEvent("Failed to start process (caught error) - " & ex.Message)
+        End Try
+    End Sub
+
+    ' Opens a file browser for the file path text box
+    Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
+        Dim fd As OpenFileDialog = New OpenFileDialog()
+        fd.Filter = "Batch files (*.bat)|*.bat|Executables (*.exe)|(*.exe)"
+        fd.Title = "Select Background Task"
+        fd.InitialDirectory = "C:\Desktop"
+        fd.RestoreDirectory = True
+        fd.FilterIndex = 2
+        If fd.ShowDialog() = DialogResult.OK Then
+            tbFilePath.Text = fd.FileName
+        End If
+    End Sub
+
     ' Starts the target process if the target file is a valid executable or batch file
     Private Sub StartChildProcess() Handles btnStartChildProcess.Click
         Dim path As String = tbFilePath.Text
@@ -103,15 +134,6 @@ Public Class BackgroundTaskRunnerForm
             End If
         Else
             LogEvent("Process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ") already running, skipping duplicate call")
-        End If
-    End Sub
-
-    ' Stops the target process if there is one running and "Stop on Awake" is checked
-    Private Sub StopChildProcessOnAwake()
-        If cbStopOnAwake.Checked Then
-            StopChildProcess()
-        Else
-            LogEvent("Process will not be stopped (Stop on Awake = False)")
         End If
     End Sub
 
@@ -133,18 +155,5 @@ Public Class BackgroundTaskRunnerForm
             LogEvent("No process detected, skipping 'stop'")
         End If
         batchProcess = Nothing
-    End Sub
-
-    ' Starts the process at the given path
-    Private Sub CreateChildProcess(path As String)
-        Try
-            batchProcessStartInfo = New ProcessStartInfo(path)
-            batchProcessStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
-            LogEvent("Using Execution Directory: " & batchProcessStartInfo.WorkingDirectory)
-            batchProcess = Process.Start(batchProcessStartInfo)
-            LogEvent("Starting process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
-        Catch ex As Exception
-            LogEvent("Failed to start process (caught error) - " & ex.Message)
-        End Try
     End Sub
 End Class
