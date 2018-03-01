@@ -121,39 +121,53 @@ Public Class BackgroundTaskRunnerForm
 
     ' Starts the target process if the target file is a valid executable or batch file
     Private Sub StartChildProcess() Handles btnStartChildProcess.Click
-        Dim path As String = tbFilePath.Text
-        If batchProcess Is Nothing Then
-            If path.EndsWith(".bat") Or path.EndsWith(".exe") Then
-                If File.Exists(path) Then
-                    CreateChildProcess(path)
-                Else
-                    LogEvent("Failed to start process (not a file) '" & path & "'")
-                End If
-            Else
-                LogEvent("Failed to start process (not an executable file) '" & path & "'")
-            End If
-        Else
+
+        ' Don't overlap a running process
+        If batchProcess IsNot Nothing Then
             LogEvent("Process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ") already running, skipping duplicate call")
+            Return
+        End If
+
+        Dim path As String = tbFilePath.Text
+
+        ' Don't run a non-executable file
+        If Not path.EndsWith(".bat") AndAlso Not path.EndsWith(".exe") Then
+            LogEvent("Failed to start process (invalid extension) '" & path & "'")
+            Return
+        End If
+
+        ' Make sure the file exists before starting the process
+        If File.Exists(path) Then
+            CreateChildProcess(path)
+        Else
+            LogEvent("Failed to start process (not a file) '" & path & "'")
         End If
     End Sub
 
     ' Stops the target process if there is one running
     Private Sub StopChildProcess() Handles btnStopChildProcess.Click
-        If batchProcess IsNot Nothing Then
-            Try
-                If Not batchProcess.HasExited Then
-                    Threading.Thread.Sleep(1000)
-                    LogEvent("Killing process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
-                    batchProcess.CloseMainWindow()
-                Else
-                    LogEvent("Process has already exited (Exit Code " & batchProcess.ExitCode & ")")
-                End If
-            Catch ex As Exception
-                LogEvent("Failed To stop process (Error: " & ex.Message & ")")
-            End Try
-        Else
+
+        If batchProcess Is Nothing Then
             LogEvent("No process detected, skipping 'stop'")
+            Return
         End If
+
+        If batchProcess.HasExited Then
+            LogEvent("Process has already exited (Exit Code " & batchProcess.ExitCode & ")")
+            batchProcess = Nothing
+            Return
+        End If
+
+        Try
+            ' Allow time to settle if we're waking up from screen lock or screensaver
+            Threading.Thread.Sleep(1000)
+            LogEvent("Killing process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
+            batchProcess.CloseMainWindow()
+        Catch ex As Exception
+            LogEvent("Failed To stop process (Error: " & ex.Message & ")")
+        End Try
+
         batchProcess = Nothing
+
     End Sub
 End Class
