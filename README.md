@@ -4,8 +4,23 @@ A simple Visual Basic app that starts/stops an executable of your choosing autom
 The executable will be started when either the computer is locked, or when the screensaver starts.
 Likewise, the executable will be stopped when the computer is unlocked, or when the screensaver stops.
 
-Direct download for the release executable can be found here:
+### Building The Project
+
+This is a Visual Basic project built with Visual Studio 2017:  
+https://www.visualstudio.com
+
+Guide on how to link a git project to VS:  
+https://docs.microsoft.com/en-us/vsts/git/gitquickstart?tabs=visual-studio
+
+### Direct Download
+
+Direct download for the release executable can be found here:  
 https://github.com/jospete/BackgroundTaskRunner/tree/master/BackgroundTaskRunner/bin/Release
+
+### Run On Startup
+
+Link the executable in your startup folder so you can continue mining after reboots:  
+https://support.microsoft.com/en-us/help/4026268/windows-change-startup-apps-in-windows-10
 
 ### Tips
 
