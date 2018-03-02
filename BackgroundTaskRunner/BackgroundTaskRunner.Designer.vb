@@ -66,8 +66,6 @@ Partial Class BackgroundTaskRunnerForm
         'cbStopOnAwake
         '
         Me.cbStopOnAwake.AutoSize = True
-        Me.cbStopOnAwake.Checked = True
-        Me.cbStopOnAwake.CheckState = System.Windows.Forms.CheckState.Checked
         Me.cbStopOnAwake.Location = New System.Drawing.Point(197, 166)
         Me.cbStopOnAwake.Name = "cbStopOnAwake"
         Me.cbStopOnAwake.Size = New System.Drawing.Size(99, 17)

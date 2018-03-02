@@ -44,6 +44,12 @@ Public Class BackgroundTaskRunnerForm
         My.Settings.Save()
     End Sub
 
+    ' Reload settings from cache
+    Private Sub ReloadSettings()
+        cbStopOnAwake.Checked = My.Settings.StopOnAwake
+        tbFilePath.Text = My.Settings.TargetPath
+    End Sub
+
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.
     ' Also registers a hook for the "Screensaver Stop" event so we know when to stop the process.
     Protected Overrides Sub WndProc(ByRef m As Message)
@@ -80,17 +86,6 @@ Public Class BackgroundTaskRunnerForm
         Else
             LogEvent("Process will not be stopped (Stop on Awake = False)")
         End If
-    End Sub
-
-    ' Reload settings from cache
-    Private Sub ReloadSettings()
-        Try
-            My.Settings.Reload()
-            tbFilePath.Text = My.Settings.TargetPath
-            cbStopOnAwake.Checked = My.Settings.StopOnAwake
-        Catch ex As Exception
-            LogEvent("Failed to load cached settings: " & ex.Message)
-        End Try
     End Sub
 
     ' Starts the process at the given path
