@@ -107,8 +107,23 @@ Public Class BackgroundTaskRunnerForm
         )
     End Sub
 
+    ' Opens a file browser for the file path text box
+    Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
+
+        Dim fd As OpenFileDialog = New OpenFileDialog()
+        fd.Filter = "Batch files (*.bat)|*.bat|Executables (*.exe)|(*.exe)"
+        fd.Title = "Select Background Task"
+        fd.InitialDirectory = "C:\Desktop"
+        fd.RestoreDirectory = True
+        fd.FilterIndex = 2
+
+        If fd.ShowDialog() = DialogResult.OK Then
+            tbFilePath.Text = fd.FileName
+        End If
+    End Sub
+
     ' Starts the process at the given path
-    Private Sub CreateChildProcess(path As String)
+    Private Sub CreateRunnableProcess(path As String)
         Try
 
             runnableStartInfo = New ProcessStartInfo(path)
@@ -129,23 +144,8 @@ Public Class BackgroundTaskRunnerForm
         End Try
     End Sub
 
-    ' Opens a file browser for the file path text box
-    Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
-
-        Dim fd As OpenFileDialog = New OpenFileDialog()
-        fd.Filter = "Batch files (*.bat)|*.bat|Executables (*.exe)|(*.exe)"
-        fd.Title = "Select Background Task"
-        fd.InitialDirectory = "C:\Desktop"
-        fd.RestoreDirectory = True
-        fd.FilterIndex = 2
-
-        If fd.ShowDialog() = DialogResult.OK Then
-            tbFilePath.Text = fd.FileName
-        End If
-    End Sub
-
     ' Starts the target process if the target file is a valid executable or batch file
-    Private Sub StartRunnable() Handles btnStartChildProcess.Click
+    Private Sub StartRunnable() Handles btnStartRunnable.Click
 
         ' Don't overlap a running process
         If runnable IsNot Nothing Then
@@ -163,14 +163,14 @@ Public Class BackgroundTaskRunnerForm
 
         ' Make sure the file exists before starting the process
         If File.Exists(path) Then
-            CreateChildProcess(path)
+            CreateRunnableProcess(path)
         Else
             LogEvent("Failed to start process (not a file) '" & path & "'")
         End If
     End Sub
 
     ' Stops the target process if there is one running
-    Private Sub StopRunnable() Handles btnStopChildProcess.Click
+    Private Sub StopRunnable() Handles btnStopRunnable.Click
 
         If runnable Is Nothing Then
             LogEvent("No process detected, skipping 'stop'")

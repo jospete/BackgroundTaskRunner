@@ -28,8 +28,8 @@ Partial Class BackgroundTaskRunnerForm
         Me.cbStopOnAwake = New System.Windows.Forms.CheckBox()
         Me.lblEventLogs = New System.Windows.Forms.Label()
         Me.lbEventLogs = New System.Windows.Forms.ListBox()
-        Me.btnStartChildProcess = New System.Windows.Forms.Button()
-        Me.btnStopChildProcess = New System.Windows.Forms.Button()
+        Me.btnStartRunnable = New System.Windows.Forms.Button()
+        Me.btnStopRunnable = New System.Windows.Forms.Button()
         Me.btnClearLogs = New System.Windows.Forms.Button()
         Me.lblDescriptionPart1 = New System.Windows.Forms.Label()
         Me.lblDescriptionPart3 = New System.Windows.Forms.Label()
@@ -93,23 +93,23 @@ Partial Class BackgroundTaskRunnerForm
         Me.lbEventLogs.Size = New System.Drawing.Size(622, 212)
         Me.lbEventLogs.TabIndex = 5
         '
-        'btnStartChildProcess
+        'btnStartRunnable
         '
-        Me.btnStartChildProcess.Location = New System.Drawing.Point(24, 162)
-        Me.btnStartChildProcess.Name = "btnStartChildProcess"
-        Me.btnStartChildProcess.Size = New System.Drawing.Size(78, 23)
-        Me.btnStartChildProcess.TabIndex = 6
-        Me.btnStartChildProcess.Text = "Start"
-        Me.btnStartChildProcess.UseVisualStyleBackColor = True
+        Me.btnStartRunnable.Location = New System.Drawing.Point(24, 162)
+        Me.btnStartRunnable.Name = "btnStartRunnable"
+        Me.btnStartRunnable.Size = New System.Drawing.Size(78, 23)
+        Me.btnStartRunnable.TabIndex = 6
+        Me.btnStartRunnable.Text = "Start"
+        Me.btnStartRunnable.UseVisualStyleBackColor = True
         '
-        'btnStopChildProcess
+        'btnStopRunnable
         '
-        Me.btnStopChildProcess.Location = New System.Drawing.Point(108, 162)
-        Me.btnStopChildProcess.Name = "btnStopChildProcess"
-        Me.btnStopChildProcess.Size = New System.Drawing.Size(83, 23)
-        Me.btnStopChildProcess.TabIndex = 7
-        Me.btnStopChildProcess.Text = "Stop"
-        Me.btnStopChildProcess.UseVisualStyleBackColor = True
+        Me.btnStopRunnable.Location = New System.Drawing.Point(108, 162)
+        Me.btnStopRunnable.Name = "btnStopRunnable"
+        Me.btnStopRunnable.Size = New System.Drawing.Size(83, 23)
+        Me.btnStopRunnable.TabIndex = 7
+        Me.btnStopRunnable.Text = "Stop"
+        Me.btnStopRunnable.UseVisualStyleBackColor = True
         '
         'btnClearLogs
         '
@@ -183,8 +183,8 @@ Partial Class BackgroundTaskRunnerForm
         Me.Controls.Add(Me.lblDescriptionPart3)
         Me.Controls.Add(Me.lblDescriptionPart1)
         Me.Controls.Add(Me.btnClearLogs)
-        Me.Controls.Add(Me.btnStopChildProcess)
-        Me.Controls.Add(Me.btnStartChildProcess)
+        Me.Controls.Add(Me.btnStopRunnable)
+        Me.Controls.Add(Me.btnStartRunnable)
         Me.Controls.Add(Me.lbEventLogs)
         Me.Controls.Add(Me.lblEventLogs)
         Me.Controls.Add(Me.cbStopOnAwake)
@@ -206,8 +206,8 @@ Partial Class BackgroundTaskRunnerForm
     Friend WithEvents cbStopOnAwake As CheckBox
     Friend WithEvents lblEventLogs As Label
     Friend WithEvents lbEventLogs As ListBox
-    Friend WithEvents btnStartChildProcess As Button
-    Friend WithEvents btnStopChildProcess As Button
+    Friend WithEvents btnStartRunnable As Button
+    Friend WithEvents btnStopRunnable As Button
     Friend WithEvents btnClearLogs As Button
     Friend WithEvents lblDescriptionPart1 As Label
     Friend WithEvents lblDescriptionPart3 As Label
