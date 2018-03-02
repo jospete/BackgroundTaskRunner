@@ -6,7 +6,7 @@ Likewise, the executable will be stopped when the computer is unlocked, or when 
 
 ### Building The Project
 
-This is a Visual Basic project built with Visual Studio 2017:  
+This project is built and maintained with Visual Studio 2017:  
 https://www.visualstudio.com
 
 Guide on how to link a git project to VS:  
