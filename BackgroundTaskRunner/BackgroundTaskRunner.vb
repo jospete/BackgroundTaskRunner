@@ -6,8 +6,8 @@ Public Class BackgroundTaskRunnerForm
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_SCREENSAVE As Integer = &HF140
 
-    Private batchProcessStartInfo As ProcessStartInfo = Nothing
-    Private WithEvents batchProcess As Process = Nothing
+    Private runnableStartInfo As ProcessStartInfo = Nothing
+    Private WithEvents runnable As Process = Nothing
 
     ' Load user settings and apply them
     Private Sub BackgroundTaskRunnerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -19,7 +19,7 @@ Public Class BackgroundTaskRunnerForm
         End If
     End Sub
 
-    ' Kill batchProcess if it is running
+    ' Kill runnable if it is running
     Private Sub BackgroundTaskRunnerForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         LogEvent("Closing...")
         StopChildProcess()
@@ -60,15 +60,6 @@ Public Class BackgroundTaskRunnerForm
         cbMinimizeOnStart.Checked = My.Settings.MinimizeOnStart
     End Sub
 
-    ' Handle "Exited" event for processes we spawn
-    Private Sub OnBatchProcessExit(ByVal sender As Object, ByVal e As EventArgs)
-        Me.Invoke(
-            Sub()
-                Me.StopChildProcess()
-            End Sub
-        )
-    End Sub
-
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.
     ' Also registers a hook for the "Screensaver Stop" event so we know when to stop the process.
     Protected Overrides Sub WndProc(ByRef m As Message)
@@ -107,18 +98,31 @@ Public Class BackgroundTaskRunnerForm
         End If
     End Sub
 
+    ' Handle "Exited" event for processes we spawn
+    Private Sub OnRunnableExit(ByVal sender As Object, ByVal e As EventArgs)
+        Me.Invoke(
+            Sub()
+                Me.StopChildProcess()
+            End Sub
+        )
+    End Sub
+
     ' Starts the process at the given path
     Private Sub CreateChildProcess(path As String)
         Try
 
-            batchProcessStartInfo = New ProcessStartInfo(path)
-            batchProcessStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
-            LogEvent("Using Execution Directory: " & batchProcessStartInfo.WorkingDirectory)
+            runnableStartInfo = New ProcessStartInfo(path)
 
-            batchProcess = Process.Start(batchProcessStartInfo)
-            batchProcess.EnableRaisingEvents = True
-            AddHandler batchProcess.Exited, AddressOf OnBatchProcessExit
-            LogEvent("Starting process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
+            ' Set the working directory for cases where the runnable calls other stuff in the same relative directory
+            runnableStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
+
+            ' Start the runnable in another Thread
+            runnable = Process.Start(runnableStartInfo)
+            LogEvent("Starting process '" & runnable.ProcessName & "' (ID " & runnable.Id & ")")
+
+            ' Add listener for the runnable's "Exited" event
+            runnable.EnableRaisingEvents = True
+            AddHandler runnable.Exited, AddressOf OnRunnableExit
 
         Catch ex As Exception
             LogEvent("Failed to start process (caught error) - " & ex.Message)
@@ -144,8 +148,8 @@ Public Class BackgroundTaskRunnerForm
     Private Sub StartChildProcess() Handles btnStartChildProcess.Click
 
         ' Don't overlap a running process
-        If batchProcess IsNot Nothing Then
-            LogEvent("Process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ") already running, skipping duplicate call")
+        If runnable IsNot Nothing Then
+            LogEvent("Process '" & runnable.ProcessName & "' (ID " & runnable.Id & ") already running, skipping duplicate call")
             Return
         End If
 
@@ -168,27 +172,27 @@ Public Class BackgroundTaskRunnerForm
     ' Stops the target process if there is one running
     Private Sub StopChildProcess() Handles btnStopChildProcess.Click
 
-        If batchProcess Is Nothing Then
+        If runnable Is Nothing Then
             LogEvent("No process detected, skipping 'stop'")
             Return
         End If
 
-        If batchProcess.HasExited Then
-            LogEvent("Process exited (Exit Code " & batchProcess.ExitCode & ")")
-            batchProcess = Nothing
+        If runnable.HasExited Then
+            LogEvent("Process exited (Exit Code " & runnable.ExitCode & ")")
+            runnable = Nothing
             Return
         End If
 
         Try
             ' Allow time to settle if we're waking up from screen lock or screensaver
             Threading.Thread.Sleep(1000)
-            LogEvent("Killing process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
-            batchProcess.CloseMainWindow()
+            LogEvent("Killing process '" & runnable.ProcessName & "' (ID " & runnable.Id & ")")
+            runnable.CloseMainWindow()
         Catch ex As Exception
             LogEvent("Failed To stop process (Error: " & ex.Message & ")")
         End Try
 
-        batchProcess = Nothing
+        runnable = Nothing
 
     End Sub
 End Class
