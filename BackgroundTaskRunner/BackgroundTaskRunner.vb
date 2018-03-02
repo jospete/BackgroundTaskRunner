@@ -7,7 +7,7 @@ Public Class BackgroundTaskRunnerForm
     Private Const SC_SCREENSAVE As Integer = &HF140
 
     Private batchProcessStartInfo As ProcessStartInfo = Nothing
-    Private batchProcess As Process = Nothing
+    Private WithEvents batchProcess As Process = Nothing
 
     ' Load user settings and apply them
     Private Sub BackgroundTaskRunnerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -60,6 +60,15 @@ Public Class BackgroundTaskRunnerForm
         cbMinimizeOnStart.Checked = My.Settings.MinimizeOnStart
     End Sub
 
+    ' Handle "Exited" event for processes we spawn
+    Private Sub OnBatchProcessExit(ByVal sender As Object, ByVal e As EventArgs)
+        Me.Invoke(
+            Sub()
+                Me.StopChildProcess()
+            End Sub
+        )
+    End Sub
+
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.
     ' Also registers a hook for the "Screensaver Stop" event so we know when to stop the process.
     Protected Overrides Sub WndProc(ByRef m As Message)
@@ -101,11 +110,16 @@ Public Class BackgroundTaskRunnerForm
     ' Starts the process at the given path
     Private Sub CreateChildProcess(path As String)
         Try
+
             batchProcessStartInfo = New ProcessStartInfo(path)
             batchProcessStartInfo.WorkingDirectory = path.Substring(0, path.LastIndexOf("\"))
             LogEvent("Using Execution Directory: " & batchProcessStartInfo.WorkingDirectory)
+
             batchProcess = Process.Start(batchProcessStartInfo)
+            batchProcess.EnableRaisingEvents = True
+            AddHandler batchProcess.Exited, AddressOf OnBatchProcessExit
             LogEvent("Starting process '" & batchProcess.ProcessName & "' (ID " & batchProcess.Id & ")")
+
         Catch ex As Exception
             LogEvent("Failed to start process (caught error) - " & ex.Message)
         End Try
@@ -113,12 +127,14 @@ Public Class BackgroundTaskRunnerForm
 
     ' Opens a file browser for the file path text box
     Private Sub btnFileBrowser_Click(sender As Object, e As EventArgs) Handles btnFileBrowser.Click
+
         Dim fd As OpenFileDialog = New OpenFileDialog()
         fd.Filter = "Batch files (*.bat)|*.bat|Executables (*.exe)|(*.exe)"
         fd.Title = "Select Background Task"
         fd.InitialDirectory = "C:\Desktop"
         fd.RestoreDirectory = True
         fd.FilterIndex = 2
+
         If fd.ShowDialog() = DialogResult.OK Then
             tbFilePath.Text = fd.FileName
         End If
@@ -158,7 +174,7 @@ Public Class BackgroundTaskRunnerForm
         End If
 
         If batchProcess.HasExited Then
-            LogEvent("Process has already exited (Exit Code " & batchProcess.ExitCode & ")")
+            LogEvent("Process exited (Exit Code " & batchProcess.ExitCode & ")")
             batchProcess = Nothing
             Return
         End If
