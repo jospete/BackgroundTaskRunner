@@ -14,6 +14,9 @@ Public Class BackgroundTaskRunnerForm
         AddHandler SystemEvents.SessionSwitch, AddressOf SystemEvents_SessionSwitch
         LogEvent("Startup")
         ReloadSettings()
+        If My.Settings.MinimizeOnStart Then
+            Me.WindowState = FormWindowState.Minimized
+        End If
     End Sub
 
     ' Kill batchProcess if it is running
@@ -44,10 +47,17 @@ Public Class BackgroundTaskRunnerForm
         My.Settings.Save()
     End Sub
 
+    ' Auto-save for "Minimize On Start" checkbox
+    Private Sub cbMinimizeOnStart_CheckedChanged(sender As Object, e As EventArgs) Handles cbMinimizeOnStart.CheckedChanged
+        My.Settings.MinimizeOnStart = cbMinimizeOnStart.Checked
+        My.Settings.Save()
+    End Sub
+
     ' Reload settings from cache
     Private Sub ReloadSettings()
-        cbStopOnAwake.Checked = My.Settings.StopOnAwake
         tbFilePath.Text = My.Settings.TargetPath
+        cbStopOnAwake.Checked = My.Settings.StopOnAwake
+        cbMinimizeOnStart.Checked = My.Settings.MinimizeOnStart
     End Sub
 
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.

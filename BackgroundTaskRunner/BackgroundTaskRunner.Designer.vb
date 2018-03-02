@@ -35,6 +35,7 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart3 = New System.Windows.Forms.Label()
         Me.lblDescriptionPart2 = New System.Windows.Forms.Label()
         Me.lblDescriptionPart4 = New System.Windows.Forms.Label()
+        Me.cbMinimizeOnStart = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'lblBatchFileSelector
@@ -161,11 +162,22 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart4.Text = "4. The process will start on screen lock (Windows+L) or when the Screensaver star" &
     "ts"
         '
+        'cbMinimizeOnStart
+        '
+        Me.cbMinimizeOnStart.AutoSize = True
+        Me.cbMinimizeOnStart.Location = New System.Drawing.Point(302, 166)
+        Me.cbMinimizeOnStart.Name = "cbMinimizeOnStart"
+        Me.cbMinimizeOnStart.Size = New System.Drawing.Size(108, 17)
+        Me.cbMinimizeOnStart.TabIndex = 14
+        Me.cbMinimizeOnStart.Text = "Minimize On Start"
+        Me.cbMinimizeOnStart.UseVisualStyleBackColor = True
+        '
         'BackgroundTaskRunnerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(670, 477)
+        Me.Controls.Add(Me.cbMinimizeOnStart)
         Me.Controls.Add(Me.lblDescriptionPart4)
         Me.Controls.Add(Me.lblDescriptionPart2)
         Me.Controls.Add(Me.lblDescriptionPart3)
@@ -201,4 +213,5 @@ Partial Class BackgroundTaskRunnerForm
     Friend WithEvents lblDescriptionPart3 As Label
     Friend WithEvents lblDescriptionPart2 As Label
     Friend WithEvents lblDescriptionPart4 As Label
+    Friend WithEvents cbMinimizeOnStart As CheckBox
 End Class
