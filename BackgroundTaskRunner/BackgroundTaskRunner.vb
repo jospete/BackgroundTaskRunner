@@ -22,7 +22,7 @@ Public Class BackgroundTaskRunnerForm
     ' Kill runnable if it is running
     Private Sub BackgroundTaskRunnerForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         LogEvent("Closing...")
-        StopChildProcess()
+        StopRunnable()
     End Sub
 
     ' Helper for client status
@@ -66,7 +66,7 @@ Public Class BackgroundTaskRunnerForm
         MyBase.WndProc(m)
         If m.Msg = WM_SYSCOMMAND AndAlso m.WParam.ToInt32 = SC_SCREENSAVE Then
             LogEvent("Screensaver Started")
-            StartChildProcess()
+            StartRunnable()
             AddHandler Application.Idle, AddressOf OnScreensaverIdle
         End If
     End Sub
@@ -75,7 +75,7 @@ Public Class BackgroundTaskRunnerForm
     Private Sub OnScreensaverIdle(ByVal sender As Object, ByVal e As EventArgs)
         RemoveHandler Application.Idle, AddressOf OnScreensaverIdle
         LogEvent("Screensaver Stopped")
-        StopChildProcessOnAwake()
+        StopRunnableOnAwake()
     End Sub
 
     ' Listens for session switch events so we can start and stop the process when the user locks/unlocks their computer
@@ -83,16 +83,16 @@ Public Class BackgroundTaskRunnerForm
         LogEvent("Session Switch (" & e.Reason.ToString() & ")")
         Select Case e.Reason
             Case SessionSwitchReason.SessionLock
-                StartChildProcess()
+                StartRunnable()
             Case SessionSwitchReason.SessionUnlock
-                StopChildProcessOnAwake()
+                StopRunnableOnAwake()
         End Select
     End Sub
 
     ' Stops the target process if there is one running and "Stop on Awake" is checked
-    Private Sub StopChildProcessOnAwake()
+    Private Sub StopRunnableOnAwake()
         If cbStopOnAwake.Checked Then
-            StopChildProcess()
+            StopRunnable()
         Else
             LogEvent("Process will not be stopped (Stop on Awake = False)")
         End If
@@ -102,7 +102,7 @@ Public Class BackgroundTaskRunnerForm
     Private Sub OnRunnableExit(ByVal sender As Object, ByVal e As EventArgs)
         Me.Invoke(
             Sub()
-                Me.StopChildProcess()
+                Me.StopRunnable()
             End Sub
         )
     End Sub
@@ -145,7 +145,7 @@ Public Class BackgroundTaskRunnerForm
     End Sub
 
     ' Starts the target process if the target file is a valid executable or batch file
-    Private Sub StartChildProcess() Handles btnStartChildProcess.Click
+    Private Sub StartRunnable() Handles btnStartChildProcess.Click
 
         ' Don't overlap a running process
         If runnable IsNot Nothing Then
@@ -170,7 +170,7 @@ Public Class BackgroundTaskRunnerForm
     End Sub
 
     ' Stops the target process if there is one running
-    Private Sub StopChildProcess() Handles btnStopChildProcess.Click
+    Private Sub StopRunnable() Handles btnStopChildProcess.Click
 
         If runnable Is Nothing Then
             LogEvent("No process detected, skipping 'stop'")
