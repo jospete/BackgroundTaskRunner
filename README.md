@@ -15,11 +15,11 @@ https://docs.microsoft.com/en-us/vsts/git/gitquickstart?tabs=visual-studio
 ### Direct Download
 
 Direct download for the release executable can be found here:  
-https://github.com/jospete/BackgroundTaskRunner/tree/master/BackgroundTaskRunner/bin/Release
+https://github.com/jospete/BackgroundTaskRunner/blob/master/BackgroundTaskRunner/bin/Release/BackgroundTaskRunner.exe
 
 ### Run On Startup
 
-Link the executable in your startup folder so you can continue mining after reboots:  
+Link the executable in your startup folder to keep it open after reboot:  
 https://support.microsoft.com/en-us/help/4026268/windows-change-startup-apps-in-windows-10
 
 ### Tips
