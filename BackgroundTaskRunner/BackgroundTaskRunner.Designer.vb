@@ -22,7 +22,7 @@ Partial Class BackgroundTaskRunnerForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblBatchFileSelector = New System.Windows.Forms.Label()
+        Me.lblExecutableOptions = New System.Windows.Forms.Label()
         Me.tbFilePath = New System.Windows.Forms.TextBox()
         Me.btnFileBrowser = New System.Windows.Forms.Button()
         Me.cbStopOnAwake = New System.Windows.Forms.CheckBox()
@@ -36,28 +36,29 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart2 = New System.Windows.Forms.Label()
         Me.lblDescriptionPart4 = New System.Windows.Forms.Label()
         Me.cbMinimizeOnStart = New System.Windows.Forms.CheckBox()
+        Me.lblBackgroundTaskRunnerOptions = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'lblBatchFileSelector
+        'lblExecutableOptions
         '
-        Me.lblBatchFileSelector.AutoSize = True
-        Me.lblBatchFileSelector.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBatchFileSelector.Location = New System.Drawing.Point(21, 119)
-        Me.lblBatchFileSelector.Name = "lblBatchFileSelector"
-        Me.lblBatchFileSelector.Size = New System.Drawing.Size(81, 17)
-        Me.lblBatchFileSelector.TabIndex = 0
-        Me.lblBatchFileSelector.Text = "Executable:"
+        Me.lblExecutableOptions.AutoSize = True
+        Me.lblExecutableOptions.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblExecutableOptions.Location = New System.Drawing.Point(21, 177)
+        Me.lblExecutableOptions.Name = "lblExecutableOptions"
+        Me.lblExecutableOptions.Size = New System.Drawing.Size(134, 17)
+        Me.lblExecutableOptions.TabIndex = 0
+        Me.lblExecutableOptions.Text = "Executable Options:"
         '
         'tbFilePath
         '
-        Me.tbFilePath.Location = New System.Drawing.Point(24, 139)
+        Me.tbFilePath.Location = New System.Drawing.Point(24, 197)
         Me.tbFilePath.Name = "tbFilePath"
         Me.tbFilePath.Size = New System.Drawing.Size(528, 20)
         Me.tbFilePath.TabIndex = 1
         '
         'btnFileBrowser
         '
-        Me.btnFileBrowser.Location = New System.Drawing.Point(558, 137)
+        Me.btnFileBrowser.Location = New System.Drawing.Point(558, 195)
         Me.btnFileBrowser.Name = "btnFileBrowser"
         Me.btnFileBrowser.Size = New System.Drawing.Size(88, 23)
         Me.btnFileBrowser.TabIndex = 2
@@ -67,7 +68,7 @@ Partial Class BackgroundTaskRunnerForm
         'cbStopOnAwake
         '
         Me.cbStopOnAwake.AutoSize = True
-        Me.cbStopOnAwake.Location = New System.Drawing.Point(197, 166)
+        Me.cbStopOnAwake.Location = New System.Drawing.Point(197, 224)
         Me.cbStopOnAwake.Name = "cbStopOnAwake"
         Me.cbStopOnAwake.Size = New System.Drawing.Size(99, 17)
         Me.cbStopOnAwake.TabIndex = 3
@@ -78,7 +79,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lblEventLogs.AutoSize = True
         Me.lblEventLogs.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEventLogs.Location = New System.Drawing.Point(20, 215)
+        Me.lblEventLogs.Location = New System.Drawing.Point(20, 268)
         Me.lblEventLogs.Name = "lblEventLogs"
         Me.lblEventLogs.Size = New System.Drawing.Size(104, 24)
         Me.lblEventLogs.TabIndex = 4
@@ -88,14 +89,14 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lbEventLogs.FormattingEnabled = True
         Me.lbEventLogs.HorizontalScrollbar = True
-        Me.lbEventLogs.Location = New System.Drawing.Point(24, 244)
+        Me.lbEventLogs.Location = New System.Drawing.Point(24, 297)
         Me.lbEventLogs.Name = "lbEventLogs"
         Me.lbEventLogs.Size = New System.Drawing.Size(622, 212)
         Me.lbEventLogs.TabIndex = 5
         '
         'btnStartRunnable
         '
-        Me.btnStartRunnable.Location = New System.Drawing.Point(24, 162)
+        Me.btnStartRunnable.Location = New System.Drawing.Point(24, 220)
         Me.btnStartRunnable.Name = "btnStartRunnable"
         Me.btnStartRunnable.Size = New System.Drawing.Size(78, 23)
         Me.btnStartRunnable.TabIndex = 6
@@ -104,7 +105,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         'btnStopRunnable
         '
-        Me.btnStopRunnable.Location = New System.Drawing.Point(108, 162)
+        Me.btnStopRunnable.Location = New System.Drawing.Point(108, 220)
         Me.btnStopRunnable.Name = "btnStopRunnable"
         Me.btnStopRunnable.Size = New System.Drawing.Size(83, 23)
         Me.btnStopRunnable.TabIndex = 7
@@ -113,7 +114,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         'btnClearLogs
         '
-        Me.btnClearLogs.Location = New System.Drawing.Point(558, 218)
+        Me.btnClearLogs.Location = New System.Drawing.Point(558, 271)
         Me.btnClearLogs.Name = "btnClearLogs"
         Me.btnClearLogs.Size = New System.Drawing.Size(88, 23)
         Me.btnClearLogs.TabIndex = 8
@@ -136,9 +137,9 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDescriptionPart3.Location = New System.Drawing.Point(21, 59)
         Me.lblDescriptionPart3.Name = "lblDescriptionPart3"
-        Me.lblDescriptionPart3.Size = New System.Drawing.Size(429, 17)
+        Me.lblDescriptionPart3.Size = New System.Drawing.Size(471, 17)
         Me.lblDescriptionPart3.TabIndex = 11
-        Me.lblDescriptionPart3.Text = "3. Keep this box open to allow process to be run in the background"
+        Me.lblDescriptionPart3.Text = "3. Keep this box open to allow the executable to be run in the background"
         '
         'lblDescriptionPart2
         '
@@ -146,10 +147,10 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDescriptionPart2.Location = New System.Drawing.Point(21, 42)
         Me.lblDescriptionPart2.Name = "lblDescriptionPart2"
-        Me.lblDescriptionPart2.Size = New System.Drawing.Size(582, 17)
+        Me.lblDescriptionPart2.Size = New System.Drawing.Size(600, 17)
         Me.lblDescriptionPart2.TabIndex = 12
-        Me.lblDescriptionPart2.Text = "2. Click ""Start"" to confirm that the process runs correctly (click ""Stop"" to canc" &
-    "el the process)"
+        Me.lblDescriptionPart2.Text = "2. Click ""Start"" to confirm that the executable runs correctly (click ""Stop"" to c" &
+    "ancel the process)"
         '
         'lblDescriptionPart4
         '
@@ -157,26 +158,37 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDescriptionPart4.Location = New System.Drawing.Point(21, 76)
         Me.lblDescriptionPart4.Name = "lblDescriptionPart4"
-        Me.lblDescriptionPart4.Size = New System.Drawing.Size(540, 17)
+        Me.lblDescriptionPart4.Size = New System.Drawing.Size(558, 17)
         Me.lblDescriptionPart4.TabIndex = 13
-        Me.lblDescriptionPart4.Text = "4. The process will start on screen lock (Windows+L) or when the Screensaver star" &
-    "ts"
+        Me.lblDescriptionPart4.Text = "4. The executable will start on screen lock (Windows+L) or when the Screensaver s" &
+    "tarts"
         '
         'cbMinimizeOnStart
         '
         Me.cbMinimizeOnStart.AutoSize = True
-        Me.cbMinimizeOnStart.Location = New System.Drawing.Point(302, 166)
+        Me.cbMinimizeOnStart.Location = New System.Drawing.Point(27, 141)
         Me.cbMinimizeOnStart.Name = "cbMinimizeOnStart"
         Me.cbMinimizeOnStart.Size = New System.Drawing.Size(108, 17)
         Me.cbMinimizeOnStart.TabIndex = 14
         Me.cbMinimizeOnStart.Text = "Minimize On Start"
         Me.cbMinimizeOnStart.UseVisualStyleBackColor = True
         '
+        'lblBackgroundTaskRunnerOptions
+        '
+        Me.lblBackgroundTaskRunnerOptions.AutoSize = True
+        Me.lblBackgroundTaskRunnerOptions.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBackgroundTaskRunnerOptions.Location = New System.Drawing.Point(24, 121)
+        Me.lblBackgroundTaskRunnerOptions.Name = "lblBackgroundTaskRunnerOptions"
+        Me.lblBackgroundTaskRunnerOptions.Size = New System.Drawing.Size(227, 17)
+        Me.lblBackgroundTaskRunnerOptions.TabIndex = 15
+        Me.lblBackgroundTaskRunnerOptions.Text = "Background Task Runner Options:"
+        '
         'BackgroundTaskRunnerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(670, 477)
+        Me.ClientSize = New System.Drawing.Size(673, 524)
+        Me.Controls.Add(Me.lblBackgroundTaskRunnerOptions)
         Me.Controls.Add(Me.cbMinimizeOnStart)
         Me.Controls.Add(Me.lblDescriptionPart4)
         Me.Controls.Add(Me.lblDescriptionPart2)
@@ -190,7 +202,7 @@ Partial Class BackgroundTaskRunnerForm
         Me.Controls.Add(Me.cbStopOnAwake)
         Me.Controls.Add(Me.btnFileBrowser)
         Me.Controls.Add(Me.tbFilePath)
-        Me.Controls.Add(Me.lblBatchFileSelector)
+        Me.Controls.Add(Me.lblExecutableOptions)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.Name = "BackgroundTaskRunnerForm"
@@ -200,7 +212,7 @@ Partial Class BackgroundTaskRunnerForm
 
     End Sub
 
-    Friend WithEvents lblBatchFileSelector As Label
+    Friend WithEvents lblExecutableOptions As Label
     Friend WithEvents tbFilePath As TextBox
     Friend WithEvents btnFileBrowser As Button
     Friend WithEvents cbStopOnAwake As CheckBox
@@ -214,4 +226,5 @@ Partial Class BackgroundTaskRunnerForm
     Friend WithEvents lblDescriptionPart2 As Label
     Friend WithEvents lblDescriptionPart4 As Label
     Friend WithEvents cbMinimizeOnStart As CheckBox
+    Friend WithEvents lblBackgroundTaskRunnerOptions As Label
 End Class
