@@ -35,6 +35,11 @@ Public Class BackgroundTaskRunnerForm
         lbEventLogs.Items.Clear()
     End Sub
 
+    ' Provide a reference to the source, because why not
+    Private Sub linkSourceCode_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSourceCode.LinkClicked
+        Process.Start(linkSourceCode.Text)
+    End Sub
+
     ' Auto-save for file path text box
     Private Sub tbFilePath_TextChanged(sender As Object, e As EventArgs) Handles tbFilePath.TextChanged
         My.Settings.TargetPath = tbFilePath.Text
@@ -195,4 +200,5 @@ Public Class BackgroundTaskRunnerForm
         runnable = Nothing
 
     End Sub
+
 End Class

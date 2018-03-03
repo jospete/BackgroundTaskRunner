@@ -37,6 +37,8 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblDescriptionPart4 = New System.Windows.Forms.Label()
         Me.cbMinimizeOnStart = New System.Windows.Forms.CheckBox()
         Me.lblBackgroundTaskRunnerOptions = New System.Windows.Forms.Label()
+        Me.lblSourceCode = New System.Windows.Forms.Label()
+        Me.linkSourceCode = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'lblExecutableOptions
@@ -183,11 +185,32 @@ Partial Class BackgroundTaskRunnerForm
         Me.lblBackgroundTaskRunnerOptions.TabIndex = 15
         Me.lblBackgroundTaskRunnerOptions.Text = "Background Task Runner Options:"
         '
+        'lblSourceCode
+        '
+        Me.lblSourceCode.AutoSize = True
+        Me.lblSourceCode.Location = New System.Drawing.Point(21, 524)
+        Me.lblSourceCode.Name = "lblSourceCode"
+        Me.lblSourceCode.Size = New System.Drawing.Size(44, 13)
+        Me.lblSourceCode.TabIndex = 16
+        Me.lblSourceCode.Text = "Source:"
+        '
+        'linkSourceCode
+        '
+        Me.linkSourceCode.AutoSize = True
+        Me.linkSourceCode.Location = New System.Drawing.Point(71, 524)
+        Me.linkSourceCode.Name = "linkSourceCode"
+        Me.linkSourceCode.Size = New System.Drawing.Size(256, 13)
+        Me.linkSourceCode.TabIndex = 17
+        Me.linkSourceCode.TabStop = True
+        Me.linkSourceCode.Text = "https://github.com/jospete/BackgroundTaskRunner"
+        '
         'BackgroundTaskRunnerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(673, 524)
+        Me.ClientSize = New System.Drawing.Size(670, 548)
+        Me.Controls.Add(Me.linkSourceCode)
+        Me.Controls.Add(Me.lblSourceCode)
         Me.Controls.Add(Me.lblBackgroundTaskRunnerOptions)
         Me.Controls.Add(Me.cbMinimizeOnStart)
         Me.Controls.Add(Me.lblDescriptionPart4)
@@ -227,4 +250,6 @@ Partial Class BackgroundTaskRunnerForm
     Friend WithEvents lblDescriptionPart4 As Label
     Friend WithEvents cbMinimizeOnStart As CheckBox
     Friend WithEvents lblBackgroundTaskRunnerOptions As Label
+    Friend WithEvents lblSourceCode As Label
+    Friend WithEvents linkSourceCode As LinkLabel
 End Class
