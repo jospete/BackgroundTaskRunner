@@ -107,7 +107,9 @@ Public Class BackgroundTaskRunnerForm
     Private Sub OnRunnableExit(ByVal sender As Object, ByVal e As EventArgs)
         Me.Invoke(
             Sub()
-                Me.StopRunnable()
+                If runnable IsNot Nothing Then
+                    Me.StopRunnable()
+                End If
             End Sub
         )
     End Sub
@@ -120,7 +122,7 @@ Public Class BackgroundTaskRunnerForm
         fd.Title = "Select Background Task"
         fd.InitialDirectory = "C:\Desktop"
         fd.RestoreDirectory = True
-        fd.FilterIndex = 2
+        fd.FilterIndex = 1
 
         If fd.ShowDialog() = DialogResult.OK Then
             tbFilePath.Text = fd.FileName
@@ -190,7 +192,7 @@ Public Class BackgroundTaskRunnerForm
 
         Try
             ' Allow time to settle if we're waking up from screen lock or screensaver
-            Threading.Thread.Sleep(1000)
+            Threading.Thread.Sleep(500)
             LogEvent("Killing process '" & runnable.ProcessName & "' (ID " & runnable.Id & ")")
             runnable.CloseMainWindow()
         Catch ex As Exception
