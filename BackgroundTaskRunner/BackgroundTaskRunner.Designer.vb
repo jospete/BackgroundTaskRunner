@@ -41,6 +41,7 @@ Partial Class BackgroundTaskRunnerForm
         Me.linkSourceCode = New System.Windows.Forms.LinkLabel()
         Me.lblDescriptionPart4a = New System.Windows.Forms.Label()
         Me.lblDescriptionPart4b = New System.Windows.Forms.Label()
+        Me.lblDescriptionPart4c = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'lblExecutableOptions
@@ -160,7 +161,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lblDescriptionPart4.AutoSize = True
         Me.lblDescriptionPart4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescriptionPart4.Location = New System.Drawing.Point(21, 81)
+        Me.lblDescriptionPart4.Location = New System.Drawing.Point(21, 74)
         Me.lblDescriptionPart4.Name = "lblDescriptionPart4"
         Me.lblDescriptionPart4.Size = New System.Drawing.Size(200, 17)
         Me.lblDescriptionPart4.TabIndex = 13
@@ -169,7 +170,7 @@ Partial Class BackgroundTaskRunnerForm
         'cbMinimizeOnOpen
         '
         Me.cbMinimizeOnOpen.AutoSize = True
-        Me.cbMinimizeOnOpen.Location = New System.Drawing.Point(27, 185)
+        Me.cbMinimizeOnOpen.Location = New System.Drawing.Point(27, 192)
         Me.cbMinimizeOnOpen.Name = "cbMinimizeOnOpen"
         Me.cbMinimizeOnOpen.Size = New System.Drawing.Size(101, 17)
         Me.cbMinimizeOnOpen.TabIndex = 14
@@ -180,7 +181,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lblBackgroundTaskRunnerOptions.AutoSize = True
         Me.lblBackgroundTaskRunnerOptions.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBackgroundTaskRunnerOptions.Location = New System.Drawing.Point(21, 156)
+        Me.lblBackgroundTaskRunnerOptions.Location = New System.Drawing.Point(21, 163)
         Me.lblBackgroundTaskRunnerOptions.Name = "lblBackgroundTaskRunnerOptions"
         Me.lblBackgroundTaskRunnerOptions.Size = New System.Drawing.Size(227, 17)
         Me.lblBackgroundTaskRunnerOptions.TabIndex = 15
@@ -209,7 +210,7 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lblDescriptionPart4a.AutoSize = True
         Me.lblDescriptionPart4a.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescriptionPart4a.Location = New System.Drawing.Point(38, 98)
+        Me.lblDescriptionPart4a.Location = New System.Drawing.Point(38, 91)
         Me.lblDescriptionPart4a.Name = "lblDescriptionPart4a"
         Me.lblDescriptionPart4a.Size = New System.Drawing.Size(271, 17)
         Me.lblDescriptionPart4a.TabIndex = 18
@@ -219,17 +220,28 @@ Partial Class BackgroundTaskRunnerForm
         '
         Me.lblDescriptionPart4b.AutoSize = True
         Me.lblDescriptionPart4b.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescriptionPart4b.Location = New System.Drawing.Point(38, 115)
+        Me.lblDescriptionPart4b.Location = New System.Drawing.Point(38, 108)
         Me.lblDescriptionPart4b.Name = "lblDescriptionPart4b"
         Me.lblDescriptionPart4b.Size = New System.Drawing.Size(220, 17)
         Me.lblDescriptionPart4b.TabIndex = 19
         Me.lblDescriptionPart4b.Text = "- Screensaver Start Event Occurs"
+        '
+        'lblDescriptionPart4c
+        '
+        Me.lblDescriptionPart4c.AutoSize = True
+        Me.lblDescriptionPart4c.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescriptionPart4c.Location = New System.Drawing.Point(38, 125)
+        Me.lblDescriptionPart4c.Name = "lblDescriptionPart4c"
+        Me.lblDescriptionPart4c.Size = New System.Drawing.Size(224, 17)
+        Me.lblDescriptionPart4c.TabIndex = 20
+        Me.lblDescriptionPart4c.Text = "- Power Mode Sleep Event Occurs"
         '
         'BackgroundTaskRunnerForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(670, 614)
+        Me.Controls.Add(Me.lblDescriptionPart4c)
         Me.Controls.Add(Me.lblDescriptionPart4b)
         Me.Controls.Add(Me.lblDescriptionPart4a)
         Me.Controls.Add(Me.linkSourceCode)
@@ -277,4 +289,5 @@ Partial Class BackgroundTaskRunnerForm
     Friend WithEvents linkSourceCode As LinkLabel
     Friend WithEvents lblDescriptionPart4a As Label
     Friend WithEvents lblDescriptionPart4b As Label
+    Friend WithEvents lblDescriptionPart4c As Label
 End Class
