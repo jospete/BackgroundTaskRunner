@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("""""")>  _
         Public Property TargetPath() As String
             Get
                 Return CType(Me("TargetPath"),String)
@@ -81,12 +81,24 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property MinimizeOnStart() As Boolean
+        Public Property OpenMinimized() As Boolean
             Get
-                Return CType(Me("MinimizeOnStart"),Boolean)
+                Return CType(Me("OpenMinimized"),Boolean)
             End Get
             Set
-                Me("MinimizeOnStart") = value
+                Me("OpenMinimized") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property RunOnStartup() As Boolean
+            Get
+                Return CType(Me("RunOnStartup"),Boolean)
+            End Get
+            Set
+                Me("RunOnStartup") = value
             End Set
         End Property
     End Class

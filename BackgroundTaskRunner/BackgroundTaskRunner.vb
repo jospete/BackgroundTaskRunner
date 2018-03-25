@@ -3,6 +3,7 @@ Imports System.IO
 
 Public Class BackgroundTaskRunnerForm
 
+    Private Const REGISTRY_PATH As String = "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_SCREENSAVE As Integer = &HF140
 
@@ -12,9 +13,10 @@ Public Class BackgroundTaskRunnerForm
     ' Load user settings and apply them
     Private Sub BackgroundTaskRunnerForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AddHandler SystemEvents.SessionSwitch, AddressOf SystemEvents_SessionSwitch
+        AddHandler SystemEvents.PowerModeChanged, AddressOf SystemEvents_PowerModeChanged
         LogEvent("Startup")
         ReloadSettings()
-        If My.Settings.MinimizeOnStart Then
+        If My.Settings.OpenMinimized Then
             Me.WindowState = FormWindowState.Minimized
         End If
     End Sub
@@ -52,17 +54,48 @@ Public Class BackgroundTaskRunnerForm
         My.Settings.Save()
     End Sub
 
-    ' Auto-save for "Minimize On Start" checkbox
-    Private Sub cbMinimizeOnStart_CheckedChanged(sender As Object, e As EventArgs) Handles cbMinimizeOnStart.CheckedChanged
-        My.Settings.MinimizeOnStart = cbMinimizeOnStart.Checked
+    ' Auto-save for "Open Minimized" checkbox
+    Private Sub cbMinimizeOnOpen_CheckedChanged(sender As Object, e As EventArgs) Handles cbMinimizeOnOpen.CheckedChanged
+        My.Settings.OpenMinimized = cbMinimizeOnOpen.Checked
         My.Settings.Save()
+    End Sub
+
+    ' Auto-save for "Run On Startup" Checkbox
+    Private Sub cbRunOnStartup_CheckedChanged(sender As Object, e As EventArgs)
+        My.Settings.RunOnStartup = False ' cbRunOnStartup.Checked
+        My.Settings.Save()
+        If My.Settings.RunOnStartup Then
+            RegisterStartup()
+        Else
+            DeregisterStartup()
+        End If
     End Sub
 
     ' Reload settings from cache
     Private Sub ReloadSettings()
         tbFilePath.Text = My.Settings.TargetPath
         cbStopOnAwake.Checked = My.Settings.StopOnAwake
-        cbMinimizeOnStart.Checked = My.Settings.MinimizeOnStart
+        cbMinimizeOnOpen.Checked = My.Settings.OpenMinimized
+    End Sub
+
+    ' Add this app to startup registery
+    Private Sub RegisterStartup()
+        Try
+            Dim registryKey = My.Computer.Registry.LocalMachine.OpenSubKey(REGISTRY_PATH, True)
+            registryKey.SetValue(Application.ProductName, Application.ExecutablePath)
+        Catch ex As Exception
+            LogEvent("Failed to register as startup task: " + ex.Message)
+        End Try
+    End Sub
+
+    ' Remove this app from startup registery
+    Private Sub DeregisterStartup()
+        Try
+            Dim registryKey = My.Computer.Registry.LocalMachine.OpenSubKey(REGISTRY_PATH, True)
+            registryKey.SetValue(Application.ProductName, Application.ExecutablePath)
+        Catch ex As Exception
+            LogEvent("Failed to de-register as startup task: " + ex.Message)
+        End Try
     End Sub
 
     ' Listen for "Screensaver Start" windows event, and start the process when this event happens.
@@ -90,6 +123,17 @@ Public Class BackgroundTaskRunnerForm
             Case SessionSwitchReason.SessionLock
                 StartRunnable()
             Case SessionSwitchReason.SessionUnlock
+                StopRunnableOnAwake()
+        End Select
+    End Sub
+
+    ' Listens for power mode events so we can start and stop the process when the computer hibernates/resumes
+    Private Sub SystemEvents_PowerModeChanged(ByVal sender As Object, ByVal e As PowerModeChangedEventArgs)
+        LogEvent("Power Mode Change (" & e.Mode.ToString() & ")")
+        Select Case e.Mode
+            Case PowerModes.Suspend
+                StartRunnable()
+            Case PowerModes.Resume
                 StopRunnableOnAwake()
         End Select
     End Sub
